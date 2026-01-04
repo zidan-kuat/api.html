@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformers Simple Viewer</title>
+
+    <style>
+      body {
+        background: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      h1 {
+        color: #00eaff;
+      }
+
+      button {
+        padding: 10px 20px;
+        background: red;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 15px;
+      }
+
+      .card {
+        border: 2px solid #00eaff;
+        padding: 10px;
+        width: 180px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      img {
+        width: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔥 Transformers Viewer 🔥</h1>
+    <button onclick="loadBots()">cek optimum pride mu disini!!</button>
+
+    <div class="list"></div>
+
+    <script>
+      function loadBots() {
+        fetch(
+          "https://raw.githubusercontent.com/nntrn/transformers-database/main/transformers.json"
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            document.querySelector(".list").innerHTML = ""; // reset tampilan
+
+            result.slice(0, 10).forEach((item) => {
+              let card = `
+                        <div class="card">
+                            <img src="${item.image}" alt="">
+                            <h3>${item.name}</h3>
+                            <p><strong>Team:</strong> ${item.faction}</p>
+                        </div>
+                    `;
+              document.querySelector(".list").innerHTML += card;
+            });
+          });
+      }
+    </script>
+  </body>
+</html>
